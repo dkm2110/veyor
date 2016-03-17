@@ -73,6 +73,7 @@ namespace Org.Apache.REEF.Wake.Remote.Impl
             _reader = new StreamDataReader(stream);
             _writer = new StreamDataWriter(stream);
             _streamingCodec = streamingCodec;
+            Logger.Log(Level.Info, string.Format("Remote IP is: {0} with port: {1}", remoteEndpoint.Address, remoteEndpoint.Port));
         }
 
         /// <summary>
@@ -95,6 +96,7 @@ namespace Org.Apache.REEF.Wake.Remote.Impl
             _reader = new StreamDataReader(stream);
             _writer = new StreamDataWriter(stream);
             _streamingCodec = streamingCodec;
+            Logger.Log(Level.Info, string.Format("Remote IP is: {0} with port: {1}", RemoteEndpoint.Address, RemoteEndpoint.Port));
         }
 
         /// <summary>
