@@ -165,7 +165,8 @@ namespace Org.Apache.REEF.Wake.Remote.Impl
                 while (!_cancellationSource.Token.IsCancellationRequested)
                 {
                     TcpClient client = await _listener.AcceptTcpClientAsync().ConfigureAwait(false);
-                    ProcessClient(client).Forget();
+                    ILink<T> link = new StreamingLink<T>(client, _streamingCodec);
+                    ProcessClient(client, link).Forget();
                 }
             }
             catch (InvalidOperationException)
@@ -182,27 +183,25 @@ namespace Org.Apache.REEF.Wake.Remote.Impl
         /// Receives event from connected TcpClient and invokes handler on the event.
         /// </summary>
         /// <param name="client">The connected client</param>
-        private async Task ProcessClient(TcpClient client)
+        private async Task ProcessClient(TcpClient client, ILink<T> link)
         {
             // Keep reading messages from client until they disconnect or timeout
             CancellationToken token = _cancellationSource.Token;
-            using (ILink<T> link = new StreamingLink<T>(client, _streamingCodec))
+            while (!token.IsCancellationRequested)
             {
-                while (!token.IsCancellationRequested)
+                T message = await link.ReadAsync(token);
+
+                if (message == null)
                 {
-                    T message = await link.ReadAsync(token);
-
-                    if (message == null)
-                    {
-                        break;
-                    }
-
-                    TransportEvent<T> transportEvent = new TransportEvent<T>(message, link);
-                    _remoteObserver.OnNext(transportEvent);
+                    break;
                 }
-                LOGGER.Log(Level.Error,
-                    "ProcessClient close the Link. IsCancellationRequested: " + token.IsCancellationRequested);
+
+                TransportEvent<T> transportEvent = new TransportEvent<T>(message, link);
+                _remoteObserver.OnNext(transportEvent);
             }
+            link.Dispose();
+            LOGGER.Log(Level.Error,
+                "ProcessClient close the Link. IsCancellationRequested: " + token.IsCancellationRequested);
         }
     }
 }
