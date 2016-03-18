@@ -32,7 +32,8 @@ build_script:
   - cmd: msbuild .\lang\cs\Org.Apache.REEF.sln /p:Configuration="Debug" /p:Platform="x64" /m
 
 test_script:
-  - cmd: msbuild .\lang\cs\TestRunner.proj /p:Configuration="Debug" /p:Platform="x64"
+  - cd .\lang\cs 
+  - cmd:  .\packages\xunit.runner.console.2.1.0\tools\xunit.console.exe .\bin\x64\Debug\Org.Apache.REEF.Wake.Tests\Org.Apache.REEF.Wake.Tests.dll -class Org.Apache.REEF.Wake.Tests.StreamingRemoteManagerTest 
 
 notifications:
   - provider: Email
