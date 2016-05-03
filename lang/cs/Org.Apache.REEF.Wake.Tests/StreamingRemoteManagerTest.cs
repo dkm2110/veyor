@@ -67,7 +67,7 @@ namespace Org.Apache.REEF.Wake.Tests
             Assert.Equal(3, events.Count);
         }
 
-        /// <summary>
+        /*/// <summary>
         /// Tests two way communications. Checks whether both sides are able to receive messages
         /// </summary>
         [Fact]
@@ -348,6 +348,6 @@ namespace Org.Apache.REEF.Wake.Tests
             }
 
             Assert.Equal(4, events.Count);
-        }
+        }*/
     }
 }
