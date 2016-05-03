@@ -40,7 +40,7 @@ namespace Org.Apache.REEF.Wake.Tests
         [Fact]
         public void TestStreamingOneWayCommunication()
         {
-            IPAddress listeningAddress = IPAddress.Parse("127.0.0.1");
+            IPAddress listeningAddress = IPAddress.Loopback;
             var anyEndpoint = new IPEndPoint(IPAddress.Any, 0);
 
             BlockingCollection<string> queue = new BlockingCollection<string>();
@@ -73,7 +73,7 @@ namespace Org.Apache.REEF.Wake.Tests
         [Fact]
         public void TestStreamingTwoWayCommunication()
         {
-            IPAddress listeningAddress = IPAddress.Parse("127.0.0.1");
+            IPAddress listeningAddress = IPAddress.Loopback;
             var anyEndpoint = new IPEndPoint(IPAddress.Any, 0);
 
             BlockingCollection<string> queue1 = new BlockingCollection<string>();
@@ -127,7 +127,7 @@ namespace Org.Apache.REEF.Wake.Tests
         [Fact]
         public void TestStreamingCommunicationThreeNodesOneWay()
         {
-            IPAddress listeningAddress = IPAddress.Parse("127.0.0.1");
+            IPAddress listeningAddress = IPAddress.Loopback;
             var anyEndpoint = new IPEndPoint(IPAddress.Any, 0);
 
             BlockingCollection<string> queue = new BlockingCollection<string>();
@@ -167,7 +167,7 @@ namespace Org.Apache.REEF.Wake.Tests
         [Fact]
         public void TestStreamingCommunicationThreeNodesBothWays()
         {
-            IPAddress listeningAddress = IPAddress.Parse("127.0.0.1");
+            IPAddress listeningAddress = IPAddress.Loopback;
             var anyEndpoint = new IPEndPoint(IPAddress.Any, 0);
 
             BlockingCollection<string> queue1 = new BlockingCollection<string>();
@@ -237,7 +237,7 @@ namespace Org.Apache.REEF.Wake.Tests
         [Fact]
         public void TestStreamingRemoteSenderCallback()
         {
-            IPAddress listeningAddress = IPAddress.Parse("127.0.0.1");
+            IPAddress listeningAddress = IPAddress.Loopback;
             var anyEndpoint = new IPEndPoint(IPAddress.Any, 0);
 
             BlockingCollection<string> queue = new BlockingCollection<string>();
@@ -284,7 +284,7 @@ namespace Org.Apache.REEF.Wake.Tests
         [Fact]
         public void TestStreamingRegisterObserverByType()
         {
-            IPAddress listeningAddress = IPAddress.Parse("127.0.0.1");
+            IPAddress listeningAddress = IPAddress.Loopback;
 
             BlockingCollection<string> queue = new BlockingCollection<string>();
             List<string> events = new List<string>();
@@ -318,7 +318,7 @@ namespace Org.Apache.REEF.Wake.Tests
         [Fact]
         public void TestStreamingCachedConnection()
         {
-            IPAddress listeningAddress = IPAddress.Parse("127.0.0.1");
+            IPAddress listeningAddress = IPAddress.Loopback;
             var anyEndpoint = new IPEndPoint(IPAddress.Any, 0);
 
             BlockingCollection<string> queue = new BlockingCollection<string>();
