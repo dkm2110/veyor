@@ -33,7 +33,7 @@ namespace Org.Apache.REEF.Wake.Tests
         private readonly StreamingRemoteManagerFactory _remoteManagerFactory1 =
             TangFactory.GetTang().NewInjector().GetInstance<StreamingRemoteManagerFactory>();
         
-        /// <summary>
+        /*/// <summary>
         /// Tests one way communication between Remote Managers 
         /// Remote Manager listens on any available port
         /// </summary>
@@ -65,9 +65,9 @@ namespace Org.Apache.REEF.Wake.Tests
             }
 
             Assert.Equal(3, events.Count);
-        }
+        }*/
 
-        /*/// <summary>
+        /// <summary>
         /// Tests two way communications. Checks whether both sides are able to receive messages
         /// </summary>
         [Fact]
@@ -120,7 +120,7 @@ namespace Org.Apache.REEF.Wake.Tests
             Assert.Equal(3, events2.Count);
         }
 
-        /// <summary>
+        /*/// <summary>
         /// Tests one way communication between 3 nodes.
         /// nodes 1 and 2 send messages to node 3
         /// </summary>
