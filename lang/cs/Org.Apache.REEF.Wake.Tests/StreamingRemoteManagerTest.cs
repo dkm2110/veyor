@@ -65,7 +65,7 @@ namespace Org.Apache.REEF.Wake.Tests
             }
 
             Assert.Equal(3, events.Count);
-        }*/
+        }
 
         /// <summary>
         /// Tests two way communications. Checks whether both sides are able to receive messages
@@ -118,9 +118,9 @@ namespace Org.Apache.REEF.Wake.Tests
 
             Assert.Equal(4, events1.Count);
             Assert.Equal(3, events2.Count);
-        }
+        }*/
 
-        /*/// <summary>
+        /// <summary>
         /// Tests one way communication between 3 nodes.
         /// nodes 1 and 2 send messages to node 3
         /// </summary>
@@ -160,7 +160,7 @@ namespace Org.Apache.REEF.Wake.Tests
             Assert.Equal(5, events.Count);
         }
 
-        /// <summary>
+        /*/// <summary>
         /// Tests one way communication between 3 nodes.
         /// nodes 1 and 2 send messages to node 3 and node 3 sends message back
         /// </summary>
