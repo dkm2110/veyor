@@ -41,6 +41,7 @@ namespace Org.Apache.REEF.Wake.Tests
         public void TestStreamingOneWayCommunication()
         {
             IPAddress listeningAddress = IPAddress.Parse("127.0.0.1");
+            var anyEndpoint = new IPEndPoint(IPAddress.Any, 0);
 
             BlockingCollection<string> queue = new BlockingCollection<string>();
             List<string> events = new List<string>();
@@ -51,7 +52,7 @@ namespace Org.Apache.REEF.Wake.Tests
             {
                 var observer = Observer.Create<string>(queue.Add);
                 IPEndPoint endpoint1 = new IPEndPoint(listeningAddress, 0);
-                remoteManager2.RegisterObserver(endpoint1, observer);
+                remoteManager2.RegisterObserver(anyEndpoint, observer);
 
                 var remoteObserver = remoteManager1.GetRemoteObserver(remoteManager2.LocalEndpoint);
                 remoteObserver.OnNext("abc");
@@ -73,6 +74,7 @@ namespace Org.Apache.REEF.Wake.Tests
         public void TestStreamingTwoWayCommunication()
         {
             IPAddress listeningAddress = IPAddress.Parse("127.0.0.1");
+            var anyEndpoint = new IPEndPoint(IPAddress.Any, 0);
 
             BlockingCollection<string> queue1 = new BlockingCollection<string>();
             BlockingCollection<string> queue2 = new BlockingCollection<string>();
@@ -88,8 +90,8 @@ namespace Org.Apache.REEF.Wake.Tests
                 var remoteEndpoint = new IPEndPoint(listeningAddress, 0);
                 var observer1 = Observer.Create<string>(queue1.Add);
                 var observer2 = Observer.Create<string>(queue2.Add);
-                remoteManager1.RegisterObserver(remoteEndpoint, observer1);
-                remoteManager2.RegisterObserver(remoteEndpoint, observer2);
+                remoteManager1.RegisterObserver(anyEndpoint, observer1);
+                remoteManager2.RegisterObserver(anyEndpoint, observer2);
 
                 // Remote manager 1 sends 3 events to remote manager 2
                 var remoteObserver1 = remoteManager1.GetRemoteObserver(remoteManager2.LocalEndpoint);
@@ -126,6 +128,7 @@ namespace Org.Apache.REEF.Wake.Tests
         public void TestStreamingCommunicationThreeNodesOneWay()
         {
             IPAddress listeningAddress = IPAddress.Parse("127.0.0.1");
+            var anyEndpoint = new IPEndPoint(IPAddress.Any, 0);
 
             BlockingCollection<string> queue = new BlockingCollection<string>();
             List<string> events = new List<string>();
@@ -137,7 +140,7 @@ namespace Org.Apache.REEF.Wake.Tests
             {
                 var remoteEndpoint = new IPEndPoint(listeningAddress, 0);
                 var observer = Observer.Create<string>(queue.Add);
-                remoteManager3.RegisterObserver(remoteEndpoint, observer);
+                remoteManager3.RegisterObserver(anyEndpoint, observer);
 
                 var remoteObserver1 = remoteManager1.GetRemoteObserver(remoteManager3.LocalEndpoint);
                 var remoteObserver2 = remoteManager2.GetRemoteObserver(remoteManager3.LocalEndpoint);
@@ -165,6 +168,7 @@ namespace Org.Apache.REEF.Wake.Tests
         public void TestStreamingCommunicationThreeNodesBothWays()
         {
             IPAddress listeningAddress = IPAddress.Parse("127.0.0.1");
+            var anyEndpoint = new IPEndPoint(IPAddress.Any, 0);
 
             BlockingCollection<string> queue1 = new BlockingCollection<string>();
             BlockingCollection<string> queue2 = new BlockingCollection<string>();
@@ -182,11 +186,11 @@ namespace Org.Apache.REEF.Wake.Tests
                 var remoteEndpoint = new IPEndPoint(listeningAddress, 0);
 
                 var observer = Observer.Create<string>(queue1.Add);
-                remoteManager1.RegisterObserver(remoteEndpoint, observer);
+                remoteManager1.RegisterObserver(anyEndpoint, observer);
                 var observer2 = Observer.Create<string>(queue2.Add);
-                remoteManager2.RegisterObserver(remoteEndpoint, observer2);
+                remoteManager2.RegisterObserver(anyEndpoint, observer2);
                 var observer3 = Observer.Create<string>(queue3.Add);
-                remoteManager3.RegisterObserver(remoteEndpoint, observer3);
+                remoteManager3.RegisterObserver(anyEndpoint, observer3);
 
                 var remoteObserver1 = remoteManager1.GetRemoteObserver(remoteManager3.LocalEndpoint);
                 var remoteObserver2 = remoteManager2.GetRemoteObserver(remoteManager3.LocalEndpoint);
@@ -234,6 +238,7 @@ namespace Org.Apache.REEF.Wake.Tests
         public void TestStreamingRemoteSenderCallback()
         {
             IPAddress listeningAddress = IPAddress.Parse("127.0.0.1");
+            var anyEndpoint = new IPEndPoint(IPAddress.Any, 0);
 
             BlockingCollection<string> queue = new BlockingCollection<string>();
             List<string> events = new List<string>();
@@ -250,11 +255,11 @@ namespace Org.Apache.REEF.Wake.Tests
 
                 var receiverObserver = Observer.Create<string>(
                     message => remoteObserver2.OnNext("received message: " + message));
-                remoteManager2.RegisterObserver(remoteEndpoint, receiverObserver);
+                remoteManager2.RegisterObserver(anyEndpoint, receiverObserver);
 
                 // Register handler for remote manager 1 to record the ack
                 var senderObserver = Observer.Create<string>(queue.Add);
-                remoteManager1.RegisterObserver(remoteEndpoint, senderObserver);
+                remoteManager1.RegisterObserver(anyEndpoint, senderObserver);
 
                 // Begin to send messages
                 var remoteObserver1 = remoteManager1.GetRemoteObserver(remoteManager2.LocalEndpoint);
@@ -314,6 +319,7 @@ namespace Org.Apache.REEF.Wake.Tests
         public void TestStreamingCachedConnection()
         {
             IPAddress listeningAddress = IPAddress.Parse("127.0.0.1");
+            var anyEndpoint = new IPEndPoint(IPAddress.Any, 0);
 
             BlockingCollection<string> queue = new BlockingCollection<string>();
             List<string> events = new List<string>();
@@ -325,7 +331,7 @@ namespace Org.Apache.REEF.Wake.Tests
             {
                 var observer = Observer.Create<string>(queue.Add);
                 IPEndPoint endpoint1 = new IPEndPoint(listeningAddress, 0);
-                remoteManager2.RegisterObserver(endpoint1, observer);
+                remoteManager2.RegisterObserver(anyEndpoint, observer);
 
                 var remoteObserver = remoteManager1.GetRemoteObserver(remoteManager2.LocalEndpoint);
                 remoteObserver.OnNext("abc");
